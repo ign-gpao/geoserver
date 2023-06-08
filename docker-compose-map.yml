@@ -1,0 +1,106 @@
+version: '3.5'
+services:
+  postgis:
+    image: postgis/postgis
+    container_name: postgis
+    hostname: postgis
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5433:5432
+    volumes:
+      - postgis-data:/var/lib/postgresql/data
+    networks:
+      - map-network
+  geoserver:
+    image: geoserver-gpao
+    container_name: geoserver
+    hostname: geoserver
+    restart: always
+    ports:
+      - 8081:8080
+    volumes:
+      - geoserver-data:/opt/geoserver_data
+      - geoserver-metadata:/opt/apache-tomcat-9.0.68/webapps/geoserver/WEB-INF/
+    networks:
+      - map-network
+  # postgres:
+  #   image: gpao/database:0.14.0
+  #   container_name: database
+  #   hostname: database
+  #   restart: always
+  #   environment:
+  #     POSTGRES_PASSWORD: postgres
+  #   ports:
+  #     - 5432:5432
+  #   volumes:
+  #     - postgres-data:/var/lib/postgresql/data
+  #   networks:
+  #     - gpao-network
+  # api-gpao:
+  #   image: gpao/api-gpao:1.25.0
+  #   container_name: api-gpao
+  #   hostname: api-gpao
+  #   restart: always
+  #   environment:
+  #    - SERVER_HOSTNAME=${SERVER_HOSTNAME}
+  #   env_file:
+  #    - context/api.env
+  #   depends_on:
+  #     - postgres
+  #   ports:
+  #     - 8080:8080
+  #   networks:
+  #     - gpao-network
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "256m"
+  # monitor-gpao:
+  #   image: gpao/monitor-gpao:1.36.0
+  #   container_name: monitor-gpao
+  #   hostname: monitor-gpao
+  #   restart: always
+  #   environment:
+  #    - SERVER_HOSTNAME=${SERVER_HOSTNAME}
+  #    - BASE_URL=${BASE_URL}
+  #   env_file:
+  #     - context/monitor.env
+  #   depends_on:
+  #     - api-gpao
+  #   ports:
+  #     - 8000:8000
+  #   networks:
+  #     - gpao-network
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "256m"
+  # client-gpao:
+  #   image: gpao/client-gpao:0.16.0
+  #   container_name: client-gpao
+  #   hostname: client-gpao
+  #   restart: always
+  #   environment:
+  #     - URL_API=api-gpao
+  #   entrypoint: ["python", "-m", "client.client"]
+  #   depends_on:
+  #     - api-gpao
+  #   networks:
+  #     - gpao-network
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "256m"
+volumes:
+  postgis-data:
+  geoserver-data:
+  geoserver-metadata:
+networks:
+  map-network:
+    name: map-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.200.0.0/16
