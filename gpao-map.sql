@@ -893,15 +893,22 @@ CREATE VIEW public.view_jobs_geometry AS
     jobs.name,
     jobs.start_date,
     jobs.end_date,
+    view_job.date_debut,
+    view_job.hms_debut,
+    view_job.duree,
     jobs.command,
     jobs.status,
     jobs.return_code,
     jobs.log,
     jobs.id_project,
+    projects.name AS name_project,
     jobs.id_session,
+    view_job.session_host,
     jobs.tags,
     jobs.geometry
-   FROM public.jobs
+   FROM ((public.jobs
+     JOIN public.projects ON ((projects.id = jobs.id_project)))
+     JOIN public.view_job ON ((view_job.job_id = jobs.id)))
   WHERE (jobs.geometry IS NOT NULL);
 
 
