@@ -1,0 +1,49 @@
+{
+    "projects": [
+        {
+            "name": "project-map1",
+            "jobs": [
+                {
+                    "name": "job_with_geom",
+                    "command": "sleep 5",
+                    "geometry": "0106000020E61000000100000001030000000100000005000000500834AD72D51540CB389A27B9084740C28E5BF782D715401DA21CCD7B0E474072E2A118C5191640D6667F3B4D0E4740D9D3A6EEA6171640108BB99F8A084740500834AD72D51540CB389A27B9084740"
+                },
+                {
+                    "name": "job_with_geom",
+                    "command": "sleep 5",
+                    "geometry": "SRID=2154;POINT(736000 6917000)"
+                },
+                {
+                    "name": "job_with_geom",
+                    "command": "sleep 5",
+                    "geometry": "SRID=2154;POLYGON((736000 6917000 , 737000 6917000 , 737000 6918000 , 736000 6918000 , 736000 6917000))"
+                }
+            ]
+        },
+        {
+            "name": "project-map2",
+            "jobs": [
+                {
+                    "name": "job_with_geom",
+                    "command": "sleep 5",
+                    "geometry": "SRID=2154;POINT(736000 6917000)"
+                },
+                {
+                    "name": "job_with_geom",
+                    "command": "sleep 5",
+                    "geometry": "SRID=2154;POLYGON((736000 6917000 , 737000 6917000 , 737000 6918000 , 736000 6918000 , 736000 6917000))"
+                }
+            ]
+        },
+        {
+            "name": "project-map3",
+            "jobs": [
+                {
+                    "name": "Semis_2023_0736_6917_LA93_IGN69",
+                    "command": "sleep 5",
+                    "geometry": "SRID=2154;POINT(0736000 6917000)"
+                }
+            ]
+        }
+    ]
+}
